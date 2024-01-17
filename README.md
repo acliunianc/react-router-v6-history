@@ -1,30 +1,22 @@
-# React + TypeScript + Vite
+# react-router V6
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+在此版本中无法使用 history 库，同时不能优雅的在函数组件外进行路由的跳转
 
-Currently, two official plugins are available:
+## 解决方案
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+通过`react-router`的`Router`组件，进行底层路由的配置
 
-## Expanding the ESLint configuration
+仅需要给Router组件传递`location`和`navigator`属性
+- location：用来找到当前路由需要渲染的组件
+- navigator：用来进行路由的跳转
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 示例
+参考App.tsx
 
-- Configure the top-level `parserOptions` property like this:
+> 关键是路由跳转后，组件需要重新渲染，否则无法展示正确的路由
+> 甚至你可以删除`react-router-dom`库，你会发现一切正常
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## 封装
+也可以手动封装一个`BrowserRouter`组件来使用
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+参考 "./src/components/BrowserRouter.tsx"
